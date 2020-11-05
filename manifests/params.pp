@@ -103,10 +103,17 @@ class zfs::params {
           $manage_repo      = true
           $zed_service_name = 'zfs-zed'
           $zedlet_dir       = '/usr/lib/x86_64-linux-gnu/zfs/zed.d'
-          $zfs_package_name = [
-            'zfs-dkms',
-            'zfsutils-linux',
-          ]
+          case $::kernelrelease {
+            /.*-pve/: {
+              $zfs_package_name = 'zfsutils-linux'
+            }
+            default: {
+              $zfs_package_name = [
+                'zfs-dkms',
+                'zfsutils-linux',
+              ]
+            }
+          }
 
           case $::operatingsystemmajrelease {
             '8', '9': {
