@@ -66,7 +66,7 @@ describe 'zfs' do
             it { is_expected.to contain_service('zfs-share') }
           end
         else
-          if facts[:kernelrelease] !~ /.*-pve$/ {
+          if facts[:kernelrelease] !~ /.*-pve/ {
             it { is_expected.to contain_package("linux-headers-#{facts[:kernelrelease]}") }
             it { is_expected.to contain_package("linux-headers-#{facts[:architecture]}") }
             it { is_expected.to contain_package('zfs-dkms') }
